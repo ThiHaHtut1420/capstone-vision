@@ -1,0 +1,151 @@
+{
+  "feeds": [
+    {
+      "id": "feed1",
+      "url": "https://trafficcam.dst.gov.mo/camera/1",
+      "type": "mjpeg",
+      "enabled": true,
+      "comment": "Macau Traffic Camera 1"
+    },
+    {
+      "id": "feed2",
+      "url": "https://trafficcam.dst.gov.mo/camera/2",
+      "type": "mjpeg",
+      "enabled": true,
+      "comment": "Macau Traffic Camera 2"
+    },
+    {
+      "id": "feed3",
+      "url": "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8",
+      "type": "video",
+      "enabled": true,
+      "comment": "Test Stream 1 (should work)"
+    },
+    {
+      "id": "feed4",
+      "url": "https://test-streams.mux.dev/big_buck_bunny/big_buck_bunny.m3u8",
+      "type": "video",
+      "enabled": true,
+      "comment": "Test Stream 2 (should work)"
+    },
+    {
+      "id": "feed5",
+      "url": "http://wowza6.ipercast.net:1935/live/stream1/playlist.m3u8",
+      "type": "video",
+      "enabled": true,
+      "comment": "Test HLS Stream"
+    },
+    {
+      "id": "feed6",
+      "url": "https://cams.cdn-surfline.com/live/wc-la-jolla-shores.stream/playlist.m3u8",
+      "type": "video",
+      "enabled": true,
+      "comment": "Surf Cam (test)"
+    },
+    {
+      "id": "feed7",
+      "url": "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8",
+      "type": "video",
+      "enabled": true,
+      "comment": "Mux Test Stream"
+    },
+    {
+      "id": "feed8",
+      "url": "http://207.251.86.238/cctv8.jpg",
+      "type": "mjpeg",
+      "enabled": false,
+      "comment": "Placeholder - add working feed"
+    },
+    {
+      "id": "feed9",
+      "url": "http://207.251.86.238/cctv9.jpg",
+      "type": "mjpeg",
+      "enabled": false,
+      "comment": "Placeholder - add working feed"
+    },
+    {
+      "id": "feed10",
+      "url": "http://207.251.86.238/cctv10.jpg",
+      "type": "mjpeg",
+      "enabled": false,
+      "comment": "Placeholder - add working feed"
+    },
+    {
+      "id": "local_camera",
+      "type": "webcam",
+      "enabled": true
+    },
+    {
+      "id": "feed11",
+      "url": "http://207.251.86.238/cctv11.jpg",
+      "type": "mjpeg",
+      "enabled": false,
+      "comment": "Placeholder - add working feed"
+    },
+    {
+      "id": "feed12",
+      "url": "http://207.251.86.238/cctv12.jpg",
+      "type": "mjpeg",
+      "enabled": false,
+      "comment": "Placeholder - add working feed"
+    },
+    {
+      "id": "feed13",
+      "url": "http://207.251.86.238/cctv13.jpg",
+      "type": "mjpeg",
+      "enabled": false,
+      "comment": "Placeholder - add working feed"
+    },
+    {
+      "id": "feed14",
+      "url": "http://207.251.86.238/cctv14.jpg",
+      "type": "mjpeg",
+      "enabled": false,
+      "comment": "Placeholder - add working feed"
+    },
+    {
+      "id": "feed15",
+      "url": "http://207.251.86.238/cctv15.jpg",
+      "type": "mjpeg",
+      "enabled": false,
+      "comment": "Placeholder - add working feed"
+    },
+    {
+      "id": "feed16",
+      "url": "http://207.251.86.238/cctv16.jpg",
+      "type": "mjpeg",
+      "enabled": false,
+      "comment": "Placeholder - add working feed"
+    },
+    {
+      "id": "feed17",
+      "url": "http://207.251.86.238/cctv17.jpg",
+      "type": "mjpeg",
+      "enabled": false,
+      "comment": "Placeholder - add working feed"
+    },
+    {
+      "id": "feed18",
+      "url": "http://207.251.86.238/cctv18.jpg",
+      "type": "mjpeg",
+      "enabled": false,
+      "comment": "Placeholder - add working feed"
+    },
+    {
+      "id": "feed19",
+      "url": "http://207.251.86.238/cctv19.jpg",
+      "type": "mjpeg",
+      "enabled": false,
+      "comment": "Placeholder - add working feed"
+    }
+  ],
+  "grid": {
+    "columns": 5,
+    "rows": 4,
+    "spacing": 4
+  },
+  "display": {
+    "fullscreen": false,
+    "refreshInterval": 5000
+  }
+}
