@@ -1,147 +1,44 @@
 {
   "feeds": [
-    {
-      "id": "feed1",
-      "url": "https://trafficcam.dst.gov.mo/camera/1",
-      "type": "mjpeg",
-      "enabled": true,
-      "comment": "Macau Traffic Camera 1"
-    },
-    {
-      "id": "feed2",
-      "url": "https://trafficcam.dst.gov.mo/camera/2",
-      "type": "mjpeg",
-      "enabled": true,
-      "comment": "Macau Traffic Camera 2"
-    },
-    {
-      "id": "feed3",
-      "url": "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8",
-      "type": "video",
-      "enabled": true,
-      "comment": "Test Stream 1 (should work)"
-    },
-    {
-      "id": "feed4",
-      "url": "https://test-streams.mux.dev/big_buck_bunny/big_buck_bunny.m3u8",
-      "type": "video",
-      "enabled": true,
-      "comment": "Test Stream 2 (should work)"
-    },
-    {
-      "id": "feed5",
-      "url": "http://wowza6.ipercast.net:1935/live/stream1/playlist.m3u8",
-      "type": "video",
-      "enabled": true,
-      "comment": "Test HLS Stream"
-    },
-    {
-      "id": "feed6",
-      "url": "https://cams.cdn-surfline.com/live/wc-la-jolla-shores.stream/playlist.m3u8",
-      "type": "video",
-      "enabled": true,
-      "comment": "Surf Cam (test)"
-    },
-    {
-      "id": "feed7",
-      "url": "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8",
-      "type": "video",
-      "enabled": true,
-      "comment": "Mux Test Stream"
-    },
-    {
-      "id": "feed8",
-      "url": "http://207.251.86.238/cctv8.jpg",
-      "type": "mjpeg",
-      "enabled": false,
-      "comment": "Placeholder - add working feed"
-    },
-    {
-      "id": "feed9",
-      "url": "http://207.251.86.238/cctv9.jpg",
-      "type": "mjpeg",
-      "enabled": false,
-      "comment": "Placeholder - add working feed"
-    },
-    {
-      "id": "feed10",
-      "url": "http://207.251.86.238/cctv10.jpg",
-      "type": "mjpeg",
-      "enabled": false,
-      "comment": "Placeholder - add working feed"
-    },
+    { "id": "dsat_b1025", "url": "https://streaming1.dsatmacau.com/traffic/b1025.m3u8", "type": "hls", "enabled": true, "comment": "DSAT Macau" },
+    { "id": "dsat_m1035", "url": "https://streaming1.dsatmacau.com/traffic/m1035.m3u8", "type": "hls", "enabled": true, "comment": "DSAT Macau" },
+    { "id": "dsat_t1076", "url": "https://streaming1.dsatmacau.com/traffic/t1076.m3u8", "type": "hls", "enabled": true, "comment": "DSAT Macau" },
+    { "id": "dsat_z1001", "url": "https://streaming1.dsatmacau.com/traffic/z1001.m3u8", "type": "hls", "enabled": true, "comment": "DSAT Macau" },
+    { "id": "dsat_a1022", "url": "https://streaming1.dsatmacau.com/traffic/a1022.m3u8", "type": "hls", "enabled": true, "comment": "DSAT Macau" },
+    { "id": "dsat_m1040", "url": "https://streaming1.dsatmacau.com/traffic/m1040.m3u8", "type": "hls", "enabled": true, "comment": "DSAT Macau" },
+    { "id": "dsat_t1030", "url": "https://streaming1.dsatmacau.com/traffic/t1030.m3u8", "type": "hls", "enabled": true, "comment": "DSAT Macau" },
+    { "id": "dsat_m2090", "url": "https://streaming1.dsatmacau.com/traffic/m2090.m3u8", "type": "hls", "enabled": true, "comment": "DSAT Macau" },
+    { "id": "dsat_m2126", "url": "https://streaming1.dsatmacau.com/traffic/m2126.m3u8", "type": "hls", "enabled": true, "comment": "DSAT Macau" },
+    { "id": "dsat_m1090", "url": "https://streaming1.dsatmacau.com/traffic/m1090.m3u8", "type": "hls", "enabled": true, "comment": "DSAT Macau" },
+    { "id": "dsat_m1121", "url": "https://streaming1.dsatmacau.com/traffic/m1121.m3u8", "type": "hls", "enabled": true, "comment": "DSAT Macau" },
+    { "id": "dsat_b1300", "url": "https://streaming1.dsatmacau.com/traffic/b1300.m3u8", "type": "hls", "enabled": true, "comment": "DSAT Macau" },
+    { "id": "dsat_m2173", "url": "https://streaming1.dsatmacau.com/traffic/m2173.m3u8", "type": "hls", "enabled": true, "comment": "DSAT Macau" },
+    { "id": "dsat_m1033", "url": "https://streaming1.dsatmacau.com/traffic/m1033.m3u8", "type": "hls", "enabled": true, "comment": "DSAT Macau" },
     {
       "id": "local_camera",
       "type": "webcam",
-      "enabled": true
+      "enabled": true,
+      "comment": "Your webcam — 6×5 grid, tile 15 (row 3 col 3, 0-based index 14)"
     },
-    {
-      "id": "feed11",
-      "url": "http://207.251.86.238/cctv11.jpg",
-      "type": "mjpeg",
-      "enabled": false,
-      "comment": "Placeholder - add working feed"
-    },
-    {
-      "id": "feed12",
-      "url": "http://207.251.86.238/cctv12.jpg",
-      "type": "mjpeg",
-      "enabled": false,
-      "comment": "Placeholder - add working feed"
-    },
-    {
-      "id": "feed13",
-      "url": "http://207.251.86.238/cctv13.jpg",
-      "type": "mjpeg",
-      "enabled": false,
-      "comment": "Placeholder - add working feed"
-    },
-    {
-      "id": "feed14",
-      "url": "http://207.251.86.238/cctv14.jpg",
-      "type": "mjpeg",
-      "enabled": false,
-      "comment": "Placeholder - add working feed"
-    },
-    {
-      "id": "feed15",
-      "url": "http://207.251.86.238/cctv15.jpg",
-      "type": "mjpeg",
-      "enabled": false,
-      "comment": "Placeholder - add working feed"
-    },
-    {
-      "id": "feed16",
-      "url": "http://207.251.86.238/cctv16.jpg",
-      "type": "mjpeg",
-      "enabled": false,
-      "comment": "Placeholder - add working feed"
-    },
-    {
-      "id": "feed17",
-      "url": "http://207.251.86.238/cctv17.jpg",
-      "type": "mjpeg",
-      "enabled": false,
-      "comment": "Placeholder - add working feed"
-    },
-    {
-      "id": "feed18",
-      "url": "http://207.251.86.238/cctv18.jpg",
-      "type": "mjpeg",
-      "enabled": false,
-      "comment": "Placeholder - add working feed"
-    },
-    {
-      "id": "feed19",
-      "url": "http://207.251.86.238/cctv19.jpg",
-      "type": "mjpeg",
-      "enabled": false,
-      "comment": "Placeholder - add working feed"
-    }
+    { "id": "dsat_m2252", "url": "https://streaming1.dsatmacau.com/traffic/m2252.m3u8", "type": "hls", "enabled": true, "comment": "DSAT Macau" },
+    { "id": "dsat_t1014", "url": "https://streaming1.dsatmacau.com/traffic/t1014.m3u8", "type": "hls", "enabled": true, "comment": "DSAT Macau" },
+    { "id": "dsat_m2067", "url": "https://streaming1.dsatmacau.com/traffic/m2067.m3u8", "type": "hls", "enabled": true, "comment": "DSAT Macau" },
+    { "id": "dsat_t4008", "url": "https://streaming1.dsatmacau.com/traffic/t4008.m3u8", "type": "hls", "enabled": true, "comment": "DSAT Macau" },
+    { "id": "dsat_m2092", "url": "https://streaming1.dsatmacau.com/traffic/m2092.m3u8", "type": "hls", "enabled": true, "comment": "DSAT Macau" },
+    { "id": "dsat_m2125", "url": "https://streaming1.dsatmacau.com/traffic/m2125.m3u8", "type": "hls", "enabled": true, "comment": "DSAT Macau" },
+    { "id": "dsat_m2009", "url": "https://streaming1.dsatmacau.com/traffic/m2009.m3u8", "type": "hls", "enabled": true, "comment": "DSAT Macau" },
+    { "id": "dsat_m2322", "url": "https://streaming1.dsatmacau.com/traffic/m2322.m3u8", "type": "hls", "enabled": true, "comment": "DSAT Macau" },
+    { "id": "dsat_m1125", "url": "https://streaming1.dsatmacau.com/traffic/m1125.m3u8", "type": "hls", "enabled": true, "comment": "DSAT Macau" },
+    { "id": "dsat_z1003", "url": "https://streaming1.dsatmacau.com/traffic/z1003.m3u8", "type": "hls", "enabled": true, "comment": "DSAT Macau" },
+    { "id": "dsat_b1406", "url": "https://streaming1.dsatmacau.com/traffic/b1406.m3u8", "type": "hls", "enabled": true, "comment": "DSAT Macau" },
+    { "id": "dsat_a1029", "url": "https://streaming1.dsatmacau.com/traffic/a1029.m3u8", "type": "hls", "enabled": true, "comment": "DSAT Macau" },
+    { "id": "dsat_m2289", "url": "https://streaming1.dsatmacau.com/traffic/m2289.m3u8", "type": "hls", "enabled": true, "comment": "DSAT Macau" },
+    { "id": "dsat_t2019", "url": "https://streaming1.dsatmacau.com/traffic/t2019.m3u8", "type": "hls", "enabled": true, "comment": "DSAT Macau" },
+    { "id": "dsat_p1004", "url": "https://streaming1.dsatmacau.com/traffic/p1004.m3u8", "type": "hls", "enabled": true, "comment": "DSAT Macau" }
   ],
   "grid": {
-    "columns": 5,
-    "rows": 4,
+    "columns": 6,
+    "rows": 5,
     "spacing": 4
   },
   "display": {
