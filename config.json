@@ -18,7 +18,7 @@
       "id": "local_camera",
       "type": "webcam",
       "enabled": true,
-      "comment": "Your webcam — 6×5 grid, tile 15 (row 3 col 3, 0-based index 14)"
+      "comment": "Your webcam — fixed tile near bottom-right (second row/col from edge); see sketch.js getWebcamCellIndex"
     },
     { "id": "dsat_m2252", "url": "https://streaming1.dsatmacau.com/traffic/m2252.m3u8", "type": "hls", "enabled": true, "comment": "DSAT Macau" },
     { "id": "dsat_t1014", "url": "https://streaming1.dsatmacau.com/traffic/t1014.m3u8", "type": "hls", "enabled": true, "comment": "DSAT Macau" },

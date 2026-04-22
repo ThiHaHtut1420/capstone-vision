@@ -67,34 +67,28 @@ function draw() {
   // Update grid layout if window size changed
   gridLayout.calculateLayout(width, height);
   
-  // Get all enabled feeds including camera
   const allFeeds = config.feeds.filter(feed => feed.enabled);
-  const totalFeeds = allFeeds.length;
-  const cameraIndex = findCameraIndex();
-  
-  let feedManagerIndex = 0; // Index for feedManager (excludes camera)
-  
-  // Draw all grid cells
+  const hasWebcam = allFeeds.some(feed => feed.type === 'webcam');
+  const webcamCellIndex = getWebcamCellIndex(gridLayout.rows, gridLayout.columns);
+
+  let feedManagerIndex = 0;
+
   for (let i = 0; i < gridLayout.getCellCount(); i++) {
     const cell = gridLayout.getCell(i);
-    
-    if (i < totalFeeds) {
-      // We have a feed for this cell
-      const feedInfo = allFeeds[i];
-      
-      // Check if this is the camera feed
-      if (feedInfo && feedInfo.type === 'webcam') {
-        drawCameraFeed(cell, cameraCapture);
-      } else {
-        // Draw regular feed using feedManager index
-        drawVideoFeed(cell, feedManagerIndex, feedManager);
-        feedManagerIndex++;
-      }
+
+    if (hasWebcam && i === webcamCellIndex) {
+      drawCameraFeed(cell, cameraCapture, webcamCellIndex);
+      drawRecordingIndicator(cell, recordingIndicatorSalt(cell, i));
+      continue;
+    }
+
+    const streamCount = feedManager.getFeedCount();
+    if (feedManagerIndex < streamCount) {
+      drawVideoFeed(cell, feedManagerIndex, feedManager);
+      drawRecordingIndicator(cell, recordingIndicatorSalt(cell, i));
+      feedManagerIndex++;
     } else {
-      // No feed for this cell - show test pattern
       testPatternGenerator.generatePattern(cell, i, millis());
-      
-      // Draw border
       noFill();
       stroke(50);
       strokeWeight(1);
@@ -109,6 +103,30 @@ function draw() {
   if (diagnosticsEnabled) {
     drawDiagnosticsOverlay();
   }
+}
+
+/** Per-tile salt so recording dots blink out of phase (also varies blink period slightly). */
+function recordingIndicatorSalt(cell, gridIndex) {
+  return gridIndex * 2654435761 + cell.row * 2246822519 + cell.col * 3266489917;
+}
+
+function drawRecordingIndicator(cell, salt) {
+  const cycleMs = 1050 + (Math.abs(salt) % 550);
+  const phaseMs = Math.abs(salt) % cycleMs;
+  const t = (millis() + phaseMs) % cycleMs;
+  const lit = t < cycleMs * 0.48;
+  if (!lit) return;
+
+  const d = constrain(min(cell.width, cell.height) * 0.025, 2.5, 5);
+  const pad = max(1.5, d * 0.28);
+  const cx = cell.x + pad + d * 0.5;
+  const cy = cell.y + pad + d * 0.5;
+
+  push();
+  noStroke();
+  fill(235, 25, 25);
+  circle(cx, cy, d);
+  pop();
 }
 
 /**
@@ -269,65 +287,89 @@ function drawTestPattern(cell, brightness) {
   }
 }
 
-function drawCameraFeed(cell, cameraCapture) {
+function drawCameraFeed(cell, cameraCapture, patternIndex) {
+  cameraCapture.updateRevealGate();
   const capture = cameraCapture.getCapture();
-  
-  if (capture) {
-    // Check if capture has valid video dimensions
-    const hasVideo = capture.elt && capture.elt.videoWidth > 0 && capture.elt.videoHeight > 0;
-    
-    if (hasVideo || cameraCapture.isAvailable()) {
-      try {
-        if (capture.elt && capture.elt.tagName === 'VIDEO') {
-          drawVideoElementToCell(capture.elt, cell);
-        } else {
-          image(capture, cell.x, cell.y, cell.width, cell.height);
-        }
 
-        noFill();
-        stroke(100);
-        strokeWeight(1);
-        rect(cell.x, cell.y, cell.width, cell.height);
-      } catch (e) {
-        console.error('Error drawing camera:', e);
-        fill(30);
-        rect(cell.x, cell.y, cell.width, cell.height);
-        fill(255, 100, 0);
-        textAlign(CENTER, CENTER);
-        textSize(12);
-        text('Camera Error', cell.x + cell.width/2, cell.y + cell.height/2);
-      }
-    } else {
-      // Camera exists but not ready yet
-      fill(50);
+  if (capture && !cameraCapture.error) {
+    if (!cameraCapture.getVideoDrawable()) {
+      testPatternGenerator.generatePattern(cell, patternIndex, millis());
+      fill(255, 200);
+      textAlign(CENTER, CENTER);
+      textSize(16);
+      text('Loading...', cell.x + cell.width / 2, cell.y + cell.height / 2);
+      noFill();
+      stroke(100);
+      strokeWeight(1);
       rect(cell.x, cell.y, cell.width, cell.height);
-      fill(255);
+      return;
+    }
+    if (cameraCapture.shouldDeferRevealedVideo()) {
+      testPatternGenerator.generatePattern(cell, patternIndex, millis());
+      fill(255, 220);
       textAlign(CENTER, CENTER);
       textSize(14);
-      text('Camera\nInitializing...', cell.x + cell.width/2, cell.y + cell.height/2);
+      text('Starting stream…', cell.x + cell.width / 2, cell.y + cell.height / 2);
+      fill(180);
+      textSize(10);
+      text('local camera', cell.x + cell.width / 2, cell.y + cell.height / 2 + 18);
+      noFill();
+      stroke(80);
+      strokeWeight(1);
+      rect(cell.x, cell.y, cell.width, cell.height);
+      return;
     }
-  } else {
-    // Camera not available
+
+    try {
+      if (capture.elt && capture.elt.tagName === 'VIDEO') {
+        drawVideoElementToCell(capture.elt, cell);
+      } else {
+        image(capture, cell.x, cell.y, cell.width, cell.height);
+      }
+      noFill();
+      stroke(100);
+      strokeWeight(1);
+      rect(cell.x, cell.y, cell.width, cell.height);
+    } catch (e) {
+      console.error('Error drawing camera:', e);
+      fill(30);
+      rect(cell.x, cell.y, cell.width, cell.height);
+      fill(255, 100, 0);
+      textAlign(CENTER, CENTER);
+      textSize(12);
+      text('Camera Error', cell.x + cell.width / 2, cell.y + cell.height / 2);
+    }
+    return;
+  }
+
+  if (!capture) {
     fill(20);
     rect(cell.x, cell.y, cell.width, cell.height);
     fill(255, 100, 0);
     textAlign(CENTER, CENTER);
     textSize(14);
-    text('Camera\nNot Available', cell.x + cell.width/2, cell.y + cell.height/2);
+    text('Camera\nNot Available', cell.x + cell.width / 2, cell.y + cell.height / 2);
     fill(150);
     textSize(10);
-    text('Check permissions', cell.x + cell.width/2, cell.y + cell.height/2 + 30);
+    text('Check permissions', cell.x + cell.width / 2, cell.y + cell.height / 2 + 30);
+    return;
   }
+
+  fill(20);
+  rect(cell.x, cell.y, cell.width, cell.height);
+  fill(255, 100, 0);
+  textAlign(CENTER, CENTER);
+  textSize(14);
+  text('Camera\nUnavailable', cell.x + cell.width / 2, cell.y + cell.height / 2);
 }
 
-function findCameraIndex() {
-  if (!config || !config.feeds) return -1;
-  for (let i = 0; i < config.feeds.length; i++) {
-    if (config.feeds[i].type === 'webcam') {
-      return i;
-    }
-  }
-  return -1;
+/**
+ * Bottom-right area: second row from bottom and second column from right (0-based grid).
+ */
+function getWebcamCellIndex(rows, cols) {
+  const row = Math.max(0, Math.min(rows - 1, rows - 2));
+  const col = Math.max(0, Math.min(cols - 1, cols - 2));
+  return row * cols + col;
 }
 
 function windowResized() {

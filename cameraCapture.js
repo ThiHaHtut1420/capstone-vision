@@ -5,6 +5,10 @@ class CameraCapture {
     this.isReady = false;
     this.error = false;
     this.initialized = false;
+    /** After the stream is drawable, wait this long before painting it (slower than other tiles). */
+    this.extraRevealDelayMs = 2200;
+    /** When set, video is only drawn once `millis() >=` this value (deadline after first drawable frame). */
+    this._drawVideoNotBefore = null;
   }
 
   initialize() {
@@ -67,6 +71,35 @@ class CameraCapture {
       this.error = true;
       console.error('Camera initialization error:', err);
     }
+  }
+
+  getVideoDrawable() {
+    const elt = this.capture?.elt;
+    return (
+      !this.error &&
+      !!elt &&
+      elt.tagName === 'VIDEO' &&
+      elt.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA &&
+      elt.videoWidth > 0
+    );
+  }
+
+  /**
+   * Call each frame from draw(). When the camera first becomes drawable, starts the post-loading hold.
+   */
+  updateRevealGate() {
+    if (this.error || !this.capture?.elt) {
+      this._drawVideoNotBefore = null;
+      return;
+    }
+    if (this.getVideoDrawable() && this._drawVideoNotBefore === null) {
+      this._drawVideoNotBefore = millis() + this.extraRevealDelayMs;
+    }
+  }
+
+  /** True while the feed is ready but we are still holding on the loading / starting UI. */
+  shouldDeferRevealedVideo() {
+    return this.getVideoDrawable() && this._drawVideoNotBefore !== null && millis() < this._drawVideoNotBefore;
   }
 
   getCapture() {
